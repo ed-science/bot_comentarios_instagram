@@ -56,17 +56,17 @@ class InstagramBot:
     def comente_nas_fotos_com_a_hashtag(self, hashtag):
         links_de_posts = []
         driver = self.driver
-        driver.get("https://www.instagram.com/explore/tags/" + hashtag + "/")
+        driver.get(f"https://www.instagram.com/explore/tags/{hashtag}/")
         time.sleep(5)
-        for i in range(
+        for _ in range(
             1, 3
-        ):  # Altere o segundo valor aqui para que ele desça a quantidade de páginas que você quiser: quer que ele desça 5 páginas então você deve alterar de range(1,3) para range(1,5)
+        ):
             driver.execute_script(
                 "window.scrollTo(0, document.body.scrollHeight);")
             time.sleep(3)
         hrefs = driver.find_elements_by_tag_name("a")
         pic_hrefs = [elem.get_attribute("href") for elem in hrefs]
-        print(hashtag + " fotos: " + str(len(pic_hrefs)))
+        print(f"{hashtag} fotos: {len(pic_hrefs)}")
         for link in pic_hrefs:
             try:
                 if link.index("/p/") != -1:
